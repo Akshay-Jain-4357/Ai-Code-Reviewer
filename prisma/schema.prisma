@@ -1,0 +1,226 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider   = "prisma-client-js"
+}
+
+enum Role {
+  SUPERADMIN
+  ORG_OWNER
+  TEAM_ADMIN
+  DEVELOPER
+}
+
+enum ReviewMode {
+  FAST
+  DEEP
+  SECURITY
+  STYLE
+  JUNIOR
+}
+
+enum Severity {
+  INFO
+  STYLE
+  PERFORMANCE
+  BUG
+  SECURITY
+}
+
+enum PRStatus {
+  OPEN
+  CLOSED
+  MERGED
+}
+
+enum ReviewDecision {
+  APPROVED
+  CHANGES_REQUESTED
+  COMMENTED
+}
+
+model User {
+  id            String          @id @default(uuid())
+  email         String          @unique
+  name          String?
+  passwordHash  String?
+  avatarUrl     String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  
+  // Relations
+  memberships   OrgMember[]
+  auditLogs     AuditLog[]
+  reviews       Review[]        @relation("Reviewer")
+}
+
+model Organization {
+  id            String          @id @default(uuid())
+  name          String
+  slug          String          @unique
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  
+  // Billing
+  planId        String          @default("free")
+  stripeCustomerId String?
+  stripeSubscriptionId String?
+  
+  // Relations
+  members       OrgMember[]
+  teams         Team[]
+  repositories  Repository[]
+  invitations   Invitation[]
+  billingPlan   BillingPlan     @relation(fields: [planId], references: [id])
+}
+
+model OrgMember {
+  id            String          @id @default(uuid())
+  orgId         String
+  userId        String
+  role          Role            @default(DEVELOPER)
+  createdAt     DateTime        @default(now())
+  
+  organization  Organization    @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([orgId, userId])
+}
+
+model Team {
+  id            String          @id @default(uuid())
+  orgId         String
+  name          String
+  createdAt     DateTime        @default(now())
+  
+  organization  Organization    @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  repositories  Repository[]
+}
+
+model BillingPlan {
+  id            String          @id // "free", "pro", "enterprise"
+  name          String
+  priceMonthly  Float
+  prLimitMonth  Int
+  features      String[]        // Array of enabled features
+  organizations Organization[]
+}
+
+model Repository {
+  id            String          @id @default(uuid())
+  orgId         String
+  teamId        String?
+  name          String          // "owner/repo"
+  provider      String          // "github" or "gitlab"
+  githubId      BigInt?
+  oauthToken    String          // Encrypted OAuth Token
+  webhookSecret String?
+  isActive      String          @default("true") // "true" or "false"
+  customRules   String?         // Markdown or text rules
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  organization  Organization    @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  team          Team?           @relation(fields: [teamId], references: [id], onDelete: SetNull)
+  pullRequests  PullRequest[]
+}
+
+model PullRequest {
+  id            String          @id @default(uuid())
+  repoId        String
+  number        Int
+  title         String
+  author        String
+  sourceBranch  String
+  targetBranch  String
+  status        PRStatus        @default(OPEN)
+  githubUrl     String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  repository    Repository      @relation(fields: [repoId], references: [id], onDelete: Cascade)
+  reviews       Review[]
+}
+
+model Review {
+  id            String          @id @default(uuid())
+  prId          String
+  reviewerId    String?         // Null if pure AI review
+  mode          ReviewMode      @default(FAST)
+  decision      ReviewDecision  @default(COMMENTED)
+  healthScore   Int             // 0 to 100
+  durationMs    Int
+  tokensUsed    Int             @default(0)
+  cost          Float           @default(0.0)
+  providerId    String
+  createdAt     DateTime        @default(now())
+
+  pullRequest   PullRequest     @relation(fields: [prId], references: [id], onDelete: Cascade)
+  reviewer      User?           @relation("Reviewer", fields: [reviewerId], references: [id], onDelete: SetNull)
+  provider      AIProvider      @relation(fields: [providerId], references: [id])
+  comments      ReviewComment[]
+}
+
+model ReviewComment {
+  id            String          @id @default(uuid())
+  reviewId      String
+  filePath      String
+  lineNumber    Int
+  severity      Severity        @default(INFO)
+  category      String          // "BUG", "SECURITY", "PERFORMANCE", "STYLE", "QUALITY"
+  content       String          // Feedback message
+  codeSnippet   String?
+  suggestion    String?         // Auto-fix suggestions
+  githubCommentId BigInt?        // If posted to github
+  createdAt     DateTime        @default(now())
+
+  review        Review          @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+}
+
+model AIProvider {
+  id            String          @id // "openai", "groq", "gemini", "llama"
+  name          String
+  modelName     String          // e.g., "gpt-4o", "llama-3-70b", "gemini-1.5-pro"
+  apiKeySecure  String?         // Encrypted config or ENV variable key
+  isActive      Boolean         @default(false)
+  isFallback    Boolean         @default(false)
+  
+  reviews       Review[]
+  usageLogs     UsageLog[]
+}
+
+model UsageLog {
+  id            String          @id @default(uuid())
+  providerId    String
+  tokensPrompt  Int
+  tokensCompletion Int
+  cost          Float
+  createdAt     DateTime        @default(now())
+
+  provider      AIProvider      @relation(fields: [providerId], references: [id])
+}
+
+model Invitation {
+  id            String          @id @default(uuid())
+  orgId         String
+  email         String
+  role          Role            @default(DEVELOPER)
+  token         String          @unique
+  expiresAt     DateTime
+  createdAt     DateTime        @default(now())
+
+  organization  Organization    @relation(fields: [orgId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id            String          @id @default(uuid())
+  userId        String?
+  action        String          // e.g. "REPO_CONNECTED", "USER_INVITED"
+  details       String?
+  ipAddress     String?
+  createdAt     DateTime        @default(now())
+
+  user          User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
+}

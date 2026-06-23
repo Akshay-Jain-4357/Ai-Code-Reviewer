@@ -1,0 +1,402 @@
+{
+  "users": [
+    {
+      "id": "usr-1",
+      "email": "alex@acme.com",
+      "name": "Alex Rivera",
+      "passwordHash": "demo123",
+      "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80",
+      "createdAt": "2026-06-22T16:01:06.418Z",
+      "updatedAt": "2026-06-22T16:01:06.420Z"
+    },
+    {
+      "id": "usr-2",
+      "email": "sarah@acme.com",
+      "name": "Sarah Chen",
+      "passwordHash": "demo123",
+      "avatarUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80",
+      "createdAt": "2026-06-22T16:01:06.420Z",
+      "updatedAt": "2026-06-22T16:01:06.420Z"
+    }
+  ],
+  "organizations": [
+    {
+      "id": "org-1",
+      "name": "Acme Engineering",
+      "slug": "acme-engineering",
+      "planId": "pro",
+      "stripeCustomerId": "cus_mock123",
+      "stripeSubscriptionId": "sub_mock123",
+      "createdAt": "2026-06-22T16:01:06.420Z",
+      "updatedAt": "2026-06-22T16:01:06.420Z"
+    }
+  ],
+  "billingPlans": [
+    {
+      "id": "free",
+      "name": "Free Starter",
+      "priceMonthly": 0,
+      "prLimitMonth": 10,
+      "features": [
+        "10 reviews/month",
+        "Fast Review mode",
+        "Standard response times"
+      ]
+    },
+    {
+      "id": "pro",
+      "name": "Pro Team",
+      "priceMonthly": 49,
+      "prLimitMonth": -1,
+      "features": [
+        "Unlimited reviews",
+        "Deep Review mode",
+        "Security Scans",
+        "Team rules doc uploads",
+        "Dashboard analytics"
+      ]
+    },
+    {
+      "id": "enterprise",
+      "name": "Enterprise Core",
+      "priceMonthly": 199,
+      "prLimitMonth": -1,
+      "features": [
+        "SSO & SAML",
+        "Self-hosted configurations",
+        "Custom AI models integration",
+        "Advanced Audit Logs",
+        "Dedicated Support SLA"
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "id": "team-1",
+      "orgId": "org-1",
+      "name": "Core Infrastructure",
+      "createdAt": "2026-06-22T16:01:06.420Z"
+    },
+    {
+      "id": "team-2",
+      "orgId": "org-1",
+      "name": "Frontend Platform",
+      "createdAt": "2026-06-22T16:01:06.420Z"
+    }
+  ],
+  "repositories": [
+    {
+      "id": "repo-1",
+      "orgId": "org-1",
+      "teamId": "team-1",
+      "name": "acme-corp/api-gateway",
+      "provider": "github",
+      "githubId": "8273648",
+      "oauthToken": "ghp_mocktoken123456789",
+      "webhookSecret": "whsec_mock12345",
+      "isActive": "true",
+      "customRules": "1. Ensure all async operations are wrapped in try-catch blocks.\n2. Do not log sensitive user parameters.\n3. Keep methods below 40 lines of code.\n4. Prefer standard functional syntax over loops.",
+      "createdAt": "2026-06-22T16:01:06.420Z",
+      "updatedAt": "2026-06-22T16:01:06.420Z"
+    },
+    {
+      "id": "repo-2",
+      "orgId": "org-1",
+      "teamId": "team-2",
+      "name": "acme-corp/developer-dashboard",
+      "provider": "github",
+      "githubId": "9812734",
+      "oauthToken": "ghp_mocktokenfront987",
+      "webhookSecret": "whsec_mock67890",
+      "isActive": "true",
+      "createdAt": "2026-06-22T16:01:06.420Z",
+      "updatedAt": "2026-06-22T17:51:49.558Z"
+    },
+    {
+      "id": "repo-3",
+      "orgId": "org-1",
+      "teamId": "team-1",
+      "name": "acme-corp/database-migrator",
+      "provider": "github",
+      "githubId": "4432123",
+      "oauthToken": "ghp_mocktokendb123",
+      "webhookSecret": "whsec_mock5555",
+      "isActive": "true",
+      "createdAt": "2026-06-22T16:01:06.420Z",
+      "updatedAt": "2026-06-22T17:51:50.499Z"
+    }
+  ],
+  "pullRequests": [
+    {
+      "id": "pr-1",
+      "repoId": "repo-1",
+      "number": 142,
+      "title": "feat: Add JWT session token validation middleware",
+      "author": "Alex Rivera",
+      "sourceBranch": "feature/jwt-validation",
+      "targetBranch": "main",
+      "status": "OPEN",
+      "githubUrl": "https://github.com/acme-corp/api-gateway/pull/142",
+      "createdAt": "2026-06-22T14:01:06.420Z",
+      "updatedAt": "2026-06-22T16:01:06.420Z"
+    },
+    {
+      "id": "pr-2",
+      "repoId": "repo-2",
+      "number": 89,
+      "title": "bugfix: Resolve race condition in analytics dashboard widgets",
+      "author": "Sarah Chen",
+      "sourceBranch": "fix/analytics-race",
+      "targetBranch": "develop",
+      "status": "OPEN",
+      "githubUrl": "https://github.com/acme-corp/developer-dashboard/pull/89",
+      "createdAt": "2026-06-22T11:01:06.420Z",
+      "updatedAt": "2026-06-22T16:01:06.420Z"
+    },
+    {
+      "id": "pr-3",
+      "repoId": "repo-1",
+      "number": 140,
+      "title": "refactor: Optimize user lookup database query loop",
+      "author": "Alex Rivera",
+      "sourceBranch": "refactor/db-lookup",
+      "targetBranch": "main",
+      "status": "MERGED",
+      "githubUrl": "https://github.com/acme-corp/api-gateway/pull/140",
+      "createdAt": "2026-06-20T16:01:06.420Z",
+      "updatedAt": "2026-06-20T20:49:06.420Z"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "rev-1",
+      "prId": "pr-1",
+      "reviewerId": null,
+      "mode": "SECURITY",
+      "decision": "CHANGES_REQUESTED",
+      "healthScore": 68,
+      "durationMs": 3420,
+      "tokensUsed": 1824,
+      "cost": 0.027,
+      "providerId": "gemini",
+      "createdAt": "2026-06-22T14:13:06.420Z"
+    },
+    {
+      "id": "rev-2",
+      "prId": "pr-2",
+      "reviewerId": null,
+      "mode": "DEEP",
+      "decision": "APPROVED",
+      "healthScore": 94,
+      "durationMs": 4100,
+      "tokensUsed": 2150,
+      "cost": 0.032,
+      "providerId": "openai",
+      "createdAt": "2026-06-22T11:31:06.420Z"
+    },
+    {
+      "id": "rev-3",
+      "prId": "pr-3",
+      "reviewerId": null,
+      "mode": "DEEP",
+      "decision": "APPROVED",
+      "healthScore": 98,
+      "durationMs": 2900,
+      "tokensUsed": 1450,
+      "cost": 0.022,
+      "providerId": "groq",
+      "createdAt": "2026-06-20T18:25:06.420Z"
+    }
+  ],
+  "reviewComments": [
+    {
+      "id": "cmt-1",
+      "reviewId": "rev-1",
+      "filePath": "src/middleware/auth.ts",
+      "lineNumber": 24,
+      "severity": "SECURITY",
+      "category": "SECURITY",
+      "content": "Potential security threat: The JWT signature validation is using a hardcoded placeholder fallback secret in production if `process.env.JWT_SECRET` is missing. This could allow attackers to forge tokens.",
+      "codeSnippet": "const tokenSecret = process.env.JWT_SECRET || \"temp_secret_key\";\nconst decoded = jwt.verify(token, tokenSecret);",
+      "suggestion": "const tokenSecret = process.env.JWT_SECRET;\nif (!tokenSecret) {\n  throw new Error(\"FATAL: JWT_SECRET environment variable is missing\");\n}\nconst decoded = jwt.verify(token, tokenSecret);",
+      "githubCommentId": "109283748",
+      "createdAt": "2026-06-22T14:13:06.420Z"
+    },
+    {
+      "id": "cmt-2",
+      "reviewId": "rev-1",
+      "filePath": "src/middleware/auth.ts",
+      "lineNumber": 41,
+      "severity": "BUG",
+      "category": "BUG",
+      "content": "Null pointer risk: The property `req.headers.authorization` is split directly without validating that the header is present, which will cause a server crash (TypeError) if a request is made without Auth headers.",
+      "codeSnippet": "const token = req.headers.authorization.split(' ')[1];",
+      "suggestion": "const authHeader = req.headers.authorization;\nif (!authHeader || !authHeader.startsWith('Bearer ')) {\n  return res.status(401).json({ error: 'Unauthorized: Missing bearer token' });\n}\nconst token = authHeader.split(' ')[1];",
+      "githubCommentId": "109283749",
+      "createdAt": "2026-06-22T14:13:06.420Z"
+    },
+    {
+      "id": "cmt-3",
+      "reviewId": "rev-2",
+      "filePath": "src/components/AnalyticsPanel.tsx",
+      "lineNumber": 112,
+      "severity": "PERFORMANCE",
+      "category": "PERFORMANCE",
+      "content": "Unnecessary re-render triggers: The heavy analytics computing loop is defined inside the component render function. Moving it to `useMemo` will prevent frame drops during re-renders.",
+      "codeSnippet": "const sortedMetrics = data.map(d => computeHeavyAggregates(d)).sort((a,b) => b.val - a.val);",
+      "suggestion": "const sortedMetrics = useMemo(() => {\n  return data.map(d => computeHeavyAggregates(d)).sort((a,b) => b.val - a.val);\n}, [data]);",
+      "githubCommentId": "209283750",
+      "createdAt": "2026-06-22T11:31:06.420Z"
+    }
+  ],
+  "aiProviders": [
+    {
+      "id": "openai",
+      "name": "OpenAI GPT",
+      "modelName": "gpt-4o",
+      "apiKeySecure": "",
+      "isActive": true,
+      "isFallback": false
+    },
+    {
+      "id": "gemini",
+      "name": "Google Gemini",
+      "modelName": "gemini-2.5-pro",
+      "apiKeySecure": "",
+      "isActive": false,
+      "isFallback": true
+    },
+    {
+      "id": "groq",
+      "name": "Groq Llama",
+      "modelName": "llama-3.3-70b-versatile",
+      "apiKeySecure": "",
+      "isActive": false,
+      "isFallback": false
+    },
+    {
+      "id": "llama",
+      "name": "Meta Llama (Self-Hosted)",
+      "modelName": "llama-3-8b-instruct",
+      "apiKeySecure": "",
+      "isActive": false,
+      "isFallback": false
+    }
+  ],
+  "usageLogs": [
+    {
+      "id": "ul-1",
+      "providerId": "openai",
+      "tokensPrompt": 145000,
+      "tokensCompletion": 42000,
+      "cost": 1.87,
+      "createdAt": "2026-06-16T16:01:06.420Z"
+    },
+    {
+      "id": "ul-2",
+      "providerId": "openai",
+      "tokensPrompt": 210000,
+      "tokensCompletion": 63000,
+      "cost": 2.73,
+      "createdAt": "2026-06-17T16:01:06.420Z"
+    },
+    {
+      "id": "ul-3",
+      "providerId": "gemini",
+      "tokensPrompt": 89000,
+      "tokensCompletion": 23000,
+      "cost": 0.56,
+      "createdAt": "2026-06-18T16:01:06.420Z"
+    },
+    {
+      "id": "ul-4",
+      "providerId": "openai",
+      "tokensPrompt": 320000,
+      "tokensCompletion": 98000,
+      "cost": 4.18,
+      "createdAt": "2026-06-19T16:01:06.420Z"
+    },
+    {
+      "id": "ul-5",
+      "providerId": "groq",
+      "tokensPrompt": 410000,
+      "tokensCompletion": 120000,
+      "cost": 0.15,
+      "createdAt": "2026-06-20T16:01:06.420Z"
+    },
+    {
+      "id": "ul-6",
+      "providerId": "gemini",
+      "tokensPrompt": 180000,
+      "tokensCompletion": 54000,
+      "cost": 1.17,
+      "createdAt": "2026-06-21T16:01:06.420Z"
+    },
+    {
+      "id": "ul-7",
+      "providerId": "openai",
+      "tokensPrompt": 95000,
+      "tokensCompletion": 28000,
+      "cost": 1.23,
+      "createdAt": "2026-06-22T16:01:06.420Z"
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "al-1",
+      "userId": "usr-1",
+      "action": "ORG_CREATED",
+      "details": "Organization Acme Engineering initialized",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-06-15T16:01:06.420Z"
+    },
+    {
+      "id": "al-2",
+      "userId": "usr-1",
+      "action": "REPO_CONNECTED",
+      "details": "Connected GitHub repository acme-corp/api-gateway",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-06-17T16:01:06.420Z"
+    },
+    {
+      "id": "al-3",
+      "userId": "usr-1",
+      "action": "REPO_CONNECTED",
+      "details": "Connected GitHub repository acme-corp/developer-dashboard",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-06-18T16:01:06.420Z"
+    },
+    {
+      "id": "al-4",
+      "userId": "usr-2",
+      "action": "USER_INVITED",
+      "details": "Invited developer sarah@acme.com",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-06-19T16:01:06.420Z"
+    },
+    {
+      "id": "al-1782150707234",
+      "userId": "usr-1",
+      "action": "REPO_STATUS_CHANGE",
+      "details": "Toggled acme-corp/developer-dashboard to inactive",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-06-22T17:51:47.234Z"
+    },
+    {
+      "id": "al-1782150709579",
+      "userId": "usr-1",
+      "action": "REPO_STATUS_CHANGE",
+      "details": "Toggled acme-corp/developer-dashboard to active",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-06-22T17:51:49.579Z"
+    },
+    {
+      "id": "al-1782150710522",
+      "userId": "usr-1",
+      "action": "REPO_STATUS_CHANGE",
+      "details": "Toggled acme-corp/database-migrator to active",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-06-22T17:51:50.522Z"
+    }
+  ]
+}
