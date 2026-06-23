@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Sidebar from "@/components/shared/Sidebar";
 import MobileNav from "@/components/shared/MobileNav";
+import SessionProvider from "@/components/providers/SessionProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -63,16 +64,18 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="min-h-full flex bg-[--bg-base] text-[--text-primary] dark:bg-[--bg-base] dark:text-[--text-primary]">
-        {/* Desktop Sidebar — hidden on mobile */}
-        <Sidebar />
+        <SessionProvider>
+          {/* Desktop Sidebar — hidden on mobile */}
+          <Sidebar />
 
-        {/* Main Content */}
-        <main className="flex-1 w-full min-h-screen overflow-x-hidden transition-all duration-300">
-          {children}
-        </main>
+          {/* Main Content */}
+          <main className="flex-1 w-full min-h-screen overflow-x-hidden transition-all duration-300">
+            {children}
+          </main>
 
-        {/* Mobile Bottom Navigation */}
-        <MobileNav />
+          {/* Mobile Bottom Navigation */}
+          <MobileNav />
+        </SessionProvider>
       </body>
     </html>
   );

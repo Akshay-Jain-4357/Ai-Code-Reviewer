@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Sparkles, User, Mail, Lock, ArrowRight, Loader2 } from "lucide-react";
+import { Sparkles, User, Mail, Lock, ArrowRight, Loader2, AlertCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import { signIn } from "next-auth/react";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -13,16 +14,68 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading]   = useState(false);
   const [focused, setFocused]   = useState<string | null>(null);
+  const [error, setError]       = useState("");
 
-  const handleSignup = (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => router.push("/dashboard"), 1000);
+    setError("");
+
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || "Registration failed. Please try again.");
+        setLoading(false);
+        return;
+      }
+
+      // Auto login after signup
+      const signinRes = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (signinRes?.error) {
+        router.push("/login");
+      } else {
+        router.push("/dashboard");
+        router.refresh();
+      }
+    } catch (err) {
+      setError("An unexpected error occurred. Please try again.");
+      setLoading(false);
+    }
   };
 
-  const handleDemo = () => {
+  const handleDemo = async () => {
     setLoading(true);
-    setTimeout(() => router.push("/dashboard"), 700);
+    setError("");
+    try {
+      const res = await signIn("credentials", {
+        email: "alex@acme.com",
+        password: "demo123",
+        redirect: false,
+      });
+
+      if (res?.error) {
+        setError("Demo login failed.");
+        setLoading(false);
+      } else {
+        router.push("/dashboard");
+        router.refresh();
+      }
+    } catch (err) {
+      setError("An unexpected error occurred.");
+      setLoading(false);
+    }
   };
 
   return (
@@ -106,6 +159,12 @@ export default function SignupPage() {
           </div>
 
           <form onSubmit={handleSignup} className="space-y-4">
+            {error && (
+              <div className="p-3.5 bg-red-500/10 border border-red-500/20 text-red-400 text-[12px] rounded-xl flex items-center gap-2.5">
+                <AlertCircle className="h-4 w-4 shrink-0 text-red-500" />
+                <span>{error}</span>
+              </div>
+            )}
             <div className="space-y-1.5">
               <label className="text-[10px] uppercase font-bold tracking-widest text-[--text-tertiary]">Full Name</label>
               <div className="relative">
