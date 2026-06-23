@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import MagicBento from "@/components/shared/MagicBento";
+import ScrollFloat from "@/components/shared/ScrollFloat";
 
 const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -504,7 +505,17 @@ export default function LandingPage() {
               viewport={{ once: true }}
             >
               <div className="badge badge-purple inline-flex mb-4">Integration</div>
-              <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4">Up and running in 2 minutes.</h2>
+              <ScrollFloat
+                animationDuration={1}
+                ease="back.inOut(2)"
+                scrollStart="center bottom+=50%"
+                scrollEnd="bottom bottom-=40%"
+                stagger={0.03}
+                containerClassName="mb-4"
+                textClassName="text-3xl md:text-5xl !font-black tracking-tight text-white !leading-tight"
+              >
+                Up and running in 2 minutes.
+              </ScrollFloat>
               <p className="text-[15px] text-white/50 max-w-xl mx-auto">No configuration overhead. Connect your repo and push your first commit.</p>
             </motion.div>
           </div>
@@ -543,7 +554,17 @@ export default function LandingPage() {
             viewport={{ once: true }}
           >
             <div className="badge badge-gray inline-flex mb-4">Pricing</div>
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4">Simple, transparent pricing.</h2>
+            <ScrollFloat
+              animationDuration={1}
+              ease="back.inOut(2)"
+              scrollStart="center bottom+=50%"
+              scrollEnd="bottom bottom-=40%"
+              stagger={0.03}
+              containerClassName="mb-4"
+              textClassName="text-3xl md:text-5xl !font-black tracking-tight text-white !leading-tight"
+            >
+              Simple, transparent pricing.
+            </ScrollFloat>
             <p className="text-[15px] text-white/50 max-w-lg mx-auto">No per-seat madness. No hidden fees. Start free and scale as you grow.</p>
           </motion.div>
         </div>
