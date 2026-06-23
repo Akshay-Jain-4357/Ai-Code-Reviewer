@@ -135,6 +135,7 @@ body {
   text-wrap: balance;
 }
 
+@layer components {
 /* ━━━━━━━━━━━━━━━━━━━━━━━
    PREMIUM GLASS SYSTEM
    ━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -412,6 +413,7 @@ body {
 ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.20); }
 .dark ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); }
 .dark ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.16); }
+}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━
    KEYFRAME ANIMATIONS
@@ -457,6 +459,7 @@ body {
   50%       { background-position: 100% 50%; }
 }
 
+@layer components {
 /* Utility classes */
 .animate-fade-up    { animation: fade-up 0.5s cubic-bezier(0.16,1,0.3,1) both; }
 .animate-fade-in    { animation: fade-in 0.4s ease both; }
@@ -582,4 +585,5 @@ body {
 .dark .grid-pattern {
   background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
                     linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+}
 }
