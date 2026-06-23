@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Sparkles, User, Mail, Lock, ArrowRight, Loader2, AlertCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { signIn } from "next-auth/react";
+import DarkVeil from "@/components/shared/DarkVeil";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -82,9 +83,12 @@ export default function SignupPage() {
     <div className="relative min-h-screen bg-[--bg-base] flex overflow-hidden">
       {/* ── Left: Hero panel (desktop only) ── */}
       <div className="hidden lg:flex flex-col justify-between w-[480px] shrink-0 bg-gradient-to-br from-[#1a1a2e] via-[#0f0f1a] to-[#08080d] p-12 relative overflow-hidden">
-        <div className="absolute inset-0 grid-pattern opacity-50" />
-        <div className="absolute top-1/4 right-0 w-64 h-64 rounded-full bg-[--brand-500]/10 blur-[80px]" />
-        <div className="absolute bottom-0 left-1/4 w-48 h-48 rounded-full bg-purple-500/8 blur-[60px]" />
+        <div className="absolute inset-0 z-0 opacity-40">
+          <DarkVeil speed={0.4} hueShift={10} resolutionScale={0.8} />
+        </div>
+        <div className="absolute inset-0 grid-pattern opacity-50 z-0 pointer-events-none" />
+        <div className="absolute top-1/4 right-0 w-64 h-64 rounded-full bg-[--brand-500]/10 blur-[80px] z-0 pointer-events-none" />
+        <div className="absolute bottom-0 left-1/4 w-48 h-48 rounded-full bg-purple-500/8 blur-[60px] z-0 pointer-events-none" />
 
         <div className="relative z-10">
           <Link href="/" className="inline-flex items-center gap-2.5 group">

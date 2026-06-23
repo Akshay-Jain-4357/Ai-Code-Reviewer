@@ -15,6 +15,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import MagicBento from "@/components/shared/MagicBento";
 
 const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -447,6 +448,49 @@ export default function LandingPage() {
               </motion.div>
             </AnimatePresence>
           </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════ BENTO SHOWCASE ══════════════════════════ */}
+      <section className="py-28 px-4 border-t border-white/5" style={{ background: "rgba(6,6,12,0.4)" }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="badge badge-purple inline-flex mb-4">Platform</div>
+              <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4 text-balance">
+                Everything you need, <span className="gradient-text">beautifully organized.</span>
+              </h2>
+              <p className="text-[15px] text-white/50 max-w-xl mx-auto">
+                A unified control center for analytics, automation, security, and team collaboration — all in one platform.
+              </p>
+            </motion.div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="flex justify-center"
+          >
+            <MagicBento
+              textAutoHide={true}
+              enableStars={false}
+              enableSpotlight={true}
+              enableBorderGlow={true}
+              enableTilt
+              enableMagnetism={true}
+              clickEffect={true}
+              spotlightRadius={210}
+              particleCount={12}
+              glowColor="79, 110, 247"
+            />
+          </motion.div>
         </div>
       </section>
 
